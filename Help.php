@@ -2,14 +2,9 @@
 
 namespace sweelix\command;
 
-class Help implements CommandInterface {
+class Help {
 
-	public function run($plop=null, $plip=null) {
-		echo 'before';
-		var_dump($plop, $plip);
-		echo 'after';
-	}
-	public function cool() {
-		echo 'cool'."n";
+	public function run($plop, $plip=null) {
+		echo $plop;
 	}
 }

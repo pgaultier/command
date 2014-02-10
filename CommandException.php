@@ -1,6 +1,6 @@
 <?php
 /**
- * CommandInterface.php
+ * CommandException.php
  *
  * PHP version 5.3+
  *
@@ -18,8 +18,7 @@
 namespace sweelix\command;
 
 /**
- * This interface must be implemented by all command the
- * user will be running
+ * CommandException
  *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
@@ -29,13 +28,6 @@ namespace sweelix\command;
  * @category  command
  * @package   sweelix.command
  */
-interface CommandInterface {
-	/**
-	 * Method which will be run.
-	 * Return the exit code which will be used
-	 *
-	 * @return integer
-	 * @since  XXX
-	 */
-	public function run();
+
+class CommandException extends \Exception {
 }
