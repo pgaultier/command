@@ -57,8 +57,9 @@ class Runner {
 
 	/**
 	 * Get configured singleton
+	 * Beware, finding commands only works with PSR-0 / PSR-4 classes
 	 *
-	 * @param array $config singleton configuration
+	 * @param array $config singleton configuration array('namespace' => 'command ns', 'searchPath' => './where/to/search')
 	 *
 	 * @return Runner
 	 * @since  XXX
@@ -66,15 +67,22 @@ class Runner {
 	public static function getRunner($config=array()) {
 		$args = static::parseArguments();
 		$config['help'] = 'sweelix\\command\\Help';
-		if(isset($args['command']) === true) {
+		$config['basePath'] = null;
+		if(isset($config['namespace']) === false) {
+			$config['namespace'] = 'sweelix\\command';
+		}
+		if(isset($config['searchPath']) === false) {
+			$config['searchPath'] = str_replace('\\', DIRECTORY_SEPARATOR, $config['namespace']);
+		}
+			if(isset($args['command']) === true) {
 			$config['command'] = $args['command'];
 			unset($args['command']);
 		} else {
 			$config['command'] = false;
+			$args['args']['searchPath'] = $config['searchPath'];
+			$args['args']['namespace'] = $config['namespace'];
 		}
-		if(isset($config['namespace']) === false) {
-			$config['namespace'] = 'sweelix\\command';
-		}
+
 		if(isset($args['subcommand']) === true) {
 			$config['subcommand'] = $args['subcommand'];
 			unset($args['subcommand']);
