@@ -65,11 +65,12 @@ class Runner {
 	 */
 	public static function getRunner($config=array()) {
 		$args = static::parseArguments();
+		$config['help'] = 'sweelix\\command\\Help';
 		if(isset($args['command']) === true) {
 			$config['command'] = $args['command'];
 			unset($args['command']);
 		} else {
-			$config['command'] = 'help';
+			$config['command'] = false;
 		}
 		if(isset($config['namespace']) === false) {
 			$config['namespace'] = 'sweelix\\command';
@@ -98,10 +99,14 @@ class Runner {
 	 * @since  XXX
 	 */
 	public function __construct($config=array(), $args=array()) {
-		if((isset($config['namespace']) === true) && (empty($config['namespace']) === false)) {
-			$class = $config['namespace'].'\\'.ucfirst($config['command']);
+		if($config['command'] === false) {
+			$class = $config['help'];
 		} else {
-			$class = ucfirst($config['command']);
+			if((isset($config['namespace']) === true) && (empty($config['namespace']) === false)) {
+				$class = $config['namespace'].'\\'.ucfirst($config['command']);
+			} else {
+				$class = ucfirst($config['command']);
+			}
 		}
 		$reflectionClass = new \ReflectionClass($class);
 		if($reflectionClass->hasMethod($config['subcommand']) === false) {
