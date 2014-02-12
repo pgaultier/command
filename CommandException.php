@@ -4,7 +4,7 @@
  *
  * PHP version 5.3+
  *
- * Interface
+ * Exception
  *
  * @author    Philippe Gaultier <pgaultier@sweelix.net>
  * @copyright 2010-2014 Sweelix
